@@ -1,92 +1,222 @@
-EcoScore adalah platform berbasis web yang dirancang untuk memfasilitasi dan memantau program keberlanjutan dan *green campaign* di dalam sebuah organisasi. Sistem ini memungkinkan karyawan untuk berpartisipasi dalam berbagai misi lingkungan, melacak kemajuan mereka, mendapatkan poin, dan menerima pengakuan atas kontribusi mereka, sementara admin memiliki kontrol penuh untuk mengelola event, misi, dan verifikasi data.
-
------
+## Life Sync
+"Life Sync" adalah sebuah aplikasi internal yang dirancang untuk membantu menanamkan budaya dan kebiasaan positif di lingkungan kerja. Aplikasi ini memungkinkan karyawan untuk berpartisipasi dalam berbagai misi atau tantangan yang bertujuan untuk meningkatkan produktivitas, kesehatan, dan kebersamaan tim.
 
 ### Fitur Utama
+#### Tampilan Admin
+1. Akses penuh untuk mengelola dan memantau seluruh sistem.
 
-Sistem ini menawarkan serangkaian fitur yang berfokus pada pengalaman pengguna (karyawan) dan fungsionalitas admin:
+2. Manajemen Misi: Admin dapat membuat, membaca, memperbarui (update), dan menghapus (delete) misi yang ada. Setiap misi memiliki poin tertentu yang akan didapatkan oleh peserta setelah misi diselesaikan dan disetujui. Setiap misi juga harus ditentukan Penanggung Jawabnya yang akan bertugas untuk menyetujui (approve) bukti penyelesaian misi.
 
-  * **Dashboard Interaktif:** Karyawan dapat melihat ringkasan progres misi yang sedang berjalan dalam bentuk bar progres. Dashboard juga menampilkan **leaderboard** yang menunjukkan peringkat karyawan berdasarkan total poin, memberikan motivasi kompetitif untuk berpartisipasi.
-  * **Misi & Aktivitas:** Menu ini berisi daftar misi yang spesifik untuk sebuah event yang sedang diikuti. Setiap misi memiliki target yang jelas, seperti "Menanam 5 Pohon," dengan bar progres visual yang terakumulasi saat misi dijalankan.
-  * **Verifikasi Berbasis Bukti:** Untuk menyelesaikan misi, karyawan harus mengunggah bukti foto. Unggahan ini kemudian dikirim ke admin untuk diverifikasi. Admin dapat menerima atau menolak bukti, memastikan integritas dan keaslian partisipasi.
-  * **Akses Sertifikat Digital:** Karyawan dapat mengunduh sertifikat digital yang mereka peroleh setelah berhasil menyelesaikan semua misi dalam satu event. Sertifikat ini berfungsi sebagai pengakuan resmi atas partisipasi dan kontribusi mereka.
-  * **Manajemen Akun:** Fitur dasar yang memungkinkan pengguna untuk melihat sertifikat yang telah didapat dan *logout* dari sistem.
-  * **Manajemen Admin:** Admin memiliki kemampuan untuk membuat akun karyawan, mengelola event dan misi, serta memverifikasi bukti unggahan.
+3. Manajemen Peserta: Admin bisa melihat tabel seluruh peserta, lengkap dengan total poin yang telah mereka kumpulkan. Admin juga dapat melihat progress spesifik setiap peserta, termasuk riwayat unggahan bukti untuk setiap misi yang mereka ikuti.
 
------
+4. Tampilan Penanggung Jawab
+Dashboard khusus untuk mengelola dan memvalidasi penyelesaian misi.
 
-### Alur Sistem (Peran Karyawan)
+5. Dashboard Misi: Penanggung Jawab akan melihat ringkasan bukti atau berkas yang belum disetujui hari ini.
 
-Berikut adalah alur kerja yang akan dialami oleh seorang karyawan saat menggunakan sistem EcoScore:
+6. Validasi Bukti: Penanggung Jawab dapat melihat daftar lengkap peserta, nama misi, bukti berupa foto atau berkas yang diunggah, serta opsi untuk menyetujui (approve) atau menolak (decline) bukti tersebut.
 
-1.  **Login:** Karyawan masuk ke sistem menggunakan *username* dan *password* yang telah disediakan oleh admin.
-2.  **Dashboard:** Setelah berhasil masuk, karyawan akan diarahkan ke dashboard. Di sini, mereka dapat melihat ringkasan progres misi mereka dan memeriksa posisi mereka di leaderboard.
-3.  **Aktivitas/Misi:** Karyawan memilih menu `Aktivitas` untuk melihat daftar misi dari event yang sedang mereka ikuti. Setiap misi menampilkan judul, target, dan progres mereka dalam sebuah bar progres.
-4.  **Unggah Bukti:** Setelah memilih misi, karyawan akan diminta untuk mengunggah foto sebagai bukti penyelesaian. Foto ini kemudian akan menunggu verifikasi dari admin.
-5.  **Verifikasi Admin:** Admin akan meninjau unggahan tersebut. Jika bukti diterima, progres misi akan diperbarui dan poin akan ditambahkan ke akun karyawan. Jika ditolak, progres tidak akan berubah.
-6.  **Sertifikat:** Ketika semua misi dalam satu event berhasil diselesaikan, sertifikat digital akan tersedia di menu `Akun`. Karyawan dapat mengunduh sertifikat tersebut sebagai bukti partisipasi.
-7.  **Logout:** Karyawan dapat keluar dari sistem melalui menu `Akun`.
+### Alur Sistem
+1. Administrasi (Admin)
+Admin masuk ke sistem dan menuju menu Misi.
 
------
+Di sini, Admin membuat misi baru, menentukan poin, dan menunjuk Penanggung Jawab untuk misi tersebut.
 
-### Skema Database
+Di menu Peserta, Admin dapat memantau progres dan total poin seluruh peserta.
 
-Berikut adalah skema database yang digunakan oleh sistem EcoScore, disajikan dalam pernyataan SQL `CREATE TABLE`.
+Ketika mengklik salah satu peserta, Admin bisa melihat riwayat detail unggahan bukti yang telah dikerjakan oleh peserta.
 
-```sql
-CREATE TABLE `certificate` (  
-  `id_certificate` int NOT NULL,  
-  `id_user` int DEFAULT NULL,  
-  `id_event` int DEFAULT NULL,  
-  `certificate_name` varchar(100) NOT NULL,  
-  `file_path` varchar(255) NOT NULL,  
-  `issued_date` date NOT NULL  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;  
+2. Validasi (Penanggung Jawab)
+Penanggung Jawab masuk ke sistem. Dashboard utamanya menampilkan bukti-bukti yang belum di-approve hari ini.
 
-CREATE TABLE `event` (  
-  `id_event` int NOT NULL,  
-  `event_name` varchar(100) NOT NULL,  
-  `start_date` date DEFAULT NULL,  
-  `end_date` date DEFAULT NULL,  
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;  
+Penanggung Jawab dapat mengakses menu Peserta untuk melihat detail bukti yang diunggah oleh setiap partisipan.
 
-CREATE TABLE `mission` (  
-  `id_mission` int NOT NULL,  
-  `id_event` int DEFAULT NULL,  
-  `title` varchar(100) NOT NULL,  
-  `target` int NOT NULL,  
-  `point` int NOT NULL,  
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;  
+Penanggung Jawab akan mengecek bukti (foto/berkas) dan melakukan persetujuan atau penolakan.
 
-CREATE TABLE `upload` (  
-  `id_upload` int NOT NULL,  
-  `id_user` int DEFAULT NULL,  
-  `id_mission` int DEFAULT NULL,  
-  `file_path` varchar(255) NOT NULL,  
-  `status` enum('Menunggu Verifikasi','Terverifikasi','Ditolak') DEFAULT 'Menunggu Verifikasi',  
-  `uploaded_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,  
-  `verified_at` timestamp NULL DEFAULT NULL  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;  
+### Struktur Database
+Berikut adalah skema tabel yang digunakan dalam sistem Life Sync:
 
-CREATE TABLE `user` (  
-  `id_user` int NOT NULL,  
-  `name` varchar(100) NOT NULL,  
-  `username` varchar(50) NOT NULL,  
-  `password` varchar(255) NOT NULL,  
-  `role` enum('karyawan','admin') DEFAULT 'karyawan',  
-  `total_point` int DEFAULT '0',  
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;  
+1. user
+Tabel ini menyimpan data pengguna sistem, baik karyawan maupun admin.
 
-CREATE TABLE `user_mission` (  
-  `id_user_mission` int NOT NULL,  
-  `id_user` int DEFAULT NULL,  
-  `id_mission` int DEFAULT NULL,  
-  `submitted_at` timestamp NULL DEFAULT NULL,  
-  `verified_at` timestamp NULL DEFAULT NULL,  
-  `progress` int DEFAULT '0',  
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-```
+id_user: Primary Key, auto-increment
+
+name: Nama lengkap pengguna
+
+username: Username, harus unik
+
+password: Password pengguna
+
+role: Peran pengguna (karyawan atau admin)
+
+total_point: Total poin yang dikumpulkan pengguna
+
+created_at: Timestamp waktu pembuatan akun
+
+2. mission
+Tabel ini menyimpan detail dari setiap misi yang dibuat oleh admin.
+
+id_mission: Primary Key, auto-increment
+
+title: Judul misi
+
+deskripsi: Deskripsi lengkap tentang misi
+
+point: Poin yang didapat jika misi selesai
+
+penanggungjawab: Nama atau ID penanggung jawab misi
+
+start: Waktu mulai misi
+
+end: Waktu berakhir misi
+
+created_at: Timestamp waktu pembuatan misi
+
+3. user_mission
+Tabel pivot ini mencatat misi yang telah diambil oleh setiap pengguna.
+
+id_user_mission: Primary Key, auto-increment
+
+id_user: Foreign Key ke tabel user
+
+id_mission: Foreign Key ke tabel mission
+
+submitted_at: Waktu pengguna menyerahkan bukti
+
+verified_at: Waktu bukti diverifikasi
+
+updated_at: Timestamp waktu terakhir diperbarui
+
+created_at: Timestamp waktu dibuat
+
+4. upload
+Tabel ini digunakan untuk menyimpan riwayat unggahan bukti penyelesaian misi.
+
+id_upload: Primary Key, auto-increment
+
+id_user: Foreign Key ke tabel user
+
+id_mission: Foreign Key ke tabel mission
+
+file_path: Path lokasi file bukti (foto/berkas)
+
+status: Status verifikasi bukti (Menunggu Verifikasi, Terverifikasi, Ditolak)
+
+uploaded_at: Waktu unggahan file
+
+verified_at: Waktu verifikasi file
+
+5. certificate
+Tabel ini mencatat sertifikat atau penghargaan yang diterima oleh pengguna.
+
+id_certificate: Primary Key, auto-increment
+
+id_user: Foreign Key ke tabel user
+
+certificate_name: Nama sertifikat
+
+file_path: Path lokasi file sertifikat
+
+issued_date: Tanggal sertifikat diterbitkan
+
+6. log
+Tabel untuk mencatat aktivitas terbaru dalam sistem.
+
+id_log: Primary Key, auto-increment
+
+id_user_mission: Foreign Key ke tabel user_mission
+
+aktivitas_terbaru: Deskripsi singkat tentang aktivitas
+
+timestamps: Timestamp waktu aktivitas
+
+
+### Petunjuk Instalansi
+1. Masukan query SQL dibawah ini untuk export database
+
+CREATE DATABASE ecoscore;
+
+-- Tabel 'user'
+-- Menyimpan data pengguna, baik karyawan maupun admin
+--
+CREATE TABLE user (
+    id_user INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('karyawan', 'admin') NOT NULL DEFAULT 'karyawan',
+    total_point INT(11) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+--
+-- Tabel 'mission'
+-- Menyimpan detail dari setiap misi yang dibuat oleh admin
+--
+CREATE TABLE mission (
+    id_mission INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    deskripsi TEXT NOT NULL,
+    point INT(11) NOT NULL,
+    penanggungjawab VARCHAR(100),
+    start TIME,
+    end TIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+--
+-- Tabel 'user_mission'
+-- Mencatat hubungan antara pengguna dan misi yang mereka ikuti
+--
+CREATE TABLE user_mission (
+    id_user_mission INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_user INT(11) UNSIGNED,
+    id_mission INT(11) UNSIGNED,
+    submitted_at TIMESTAMP NULL,
+    verified_at TIMESTAMP NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NULL,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE SET NULL,
+    FOREIGN KEY (id_mission) REFERENCES mission(id_mission) ON DELETE SET NULL
+);
+
+--
+-- Tabel 'upload'
+-- Menyimpan riwayat bukti yang diunggah oleh pengguna
+--
+CREATE TABLE upload (
+    id_upload INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_user INT(11) UNSIGNED,
+    id_mission INT(11) UNSIGNED,
+    file_path VARCHAR(255) NOT NULL,
+    status ENUM('Menunggu Verifikasi', 'Terverifikasi', 'Ditolak') NOT NULL DEFAULT 'Menunggu Verifikasi',
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    verified_at TIMESTAMP NULL,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE SET NULL,
+    FOREIGN KEY (id_mission) REFERENCES mission(id_mission) ON DELETE SET NULL
+);
+
+--
+-- Tabel 'certificate'
+-- Mencatat sertifikat atau penghargaan yang diterima pengguna
+--
+CREATE TABLE certificate (
+    id_certificate INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_user INT(11) UNSIGNED,
+    certificate_name VARCHAR(100) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    issued_date DATE NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE SET NULL
+);
+
+--
+-- Tabel 'log'
+-- Mencatat aktivitas terbaru dalam sistem
+--
+CREATE TABLE log (
+    id_log INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_user_mission INT(11) UNSIGNED,
+    aktivitas_terbaru VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user_mission) REFERENCES user_mission(id_user_mission) ON DELETE SET NULL
+);
