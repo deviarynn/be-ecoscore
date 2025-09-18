@@ -71,7 +71,8 @@ class DatabaseSeeder extends Seeder
             $uploads[] = [
                 'id_user' => $faker->randomElement($user_ids),
                 'id_mission' => $faker->randomElement($mission_ids),
-                'file_path' => 'uploads/' . $faker->word . '/' . $faker->uuid . '.jpg',
+                'file_path_before' => 'uploads/' . $faker->word . '/' . $faker->uuid . '.jpg',
+                'file_path_after' => 'uploads/' . $faker->word . '/' . $faker->uuid . '.jpg',
                 'status' => $faker->randomElement(['Menunggu Verifikasi', 'Terverifikasi', 'Ditolak']),
                 'uploaded_at' => now(),
                 'verified_at' => $faker->optional(0.7)->dateTimeThisYear(),

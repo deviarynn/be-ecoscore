@@ -17,7 +17,8 @@ class Upload extends Model
     protected $fillable = [
         'id_user',
         'id_mission',
-        'file_path',
+        'file_path_before',
+        'file_path_after',
         'status',
         'uploaded_at',
         'verified_at',

@@ -49,5 +49,3 @@ Route::post('/upload/store', [UploadController::class, 'store']);
 // Tambahan rute untuk peserta melihat sertifikatnya sendiri
 Route::get('users/{id_user}/certificates', [UserController::class, 'showUserCertificates']);
 
-// Catatan: Anda perlu menambahkan rute otentikasi (login) dan middleware untuk melindungi rute di atas.
-// Contoh: Route::middleware('auth:api')->prefix('admin')->group(function () { ... });

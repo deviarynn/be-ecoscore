@@ -15,7 +15,8 @@ return new class extends Migration
             $table->increments('id_upload');
             $table->unsignedInteger('id_user')->nullable();
             $table->unsignedInteger('id_mission')->nullable();
-            $table->string('file_path');
+            $table->string('file_path_before');
+            $table->string('file_path_after');
             $table->enum('status', ['Menunggu Verifikasi', 'Terverifikasi', 'Ditolak'])->default('Menunggu Verifikasi');
             $table->timestamp('uploaded_at')->useCurrent();
             $table->timestamp('verified_at')->nullable();
